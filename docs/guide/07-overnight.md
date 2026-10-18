@@ -42,7 +42,7 @@ One change, one check, and one log row keep the run reviewable. A change that do
 
 ## Audit the run
 
-[`/show-me-your-work`](../../skills/show-me-your-work/SKILL.md) records the time, phase, decision, reason, evidence pointer, and result in `decisions.tsv`, or `.audit/<task-slug>.tsv` when several runs share a directory. The log stays uncommitted by default.
+[`/show-me-your-work`](../../skills/show-me-your-work/SKILL.md) records the time, phase, decision, reason, evidence pointer, and result in `decisions.tsv` inside the run's folder. That folder is the location the repo's `AGENTS.md` names, or else the one `pstack_run_dir` returns outside the repository. The log is never committed. Its verification summary goes in the PR description, and its lessons go into the nearest `AGENTS.md` or a code comment.
 
 Ask for a review summary:
 

@@ -13,7 +13,7 @@ The plugin also adapts `deslop`, `control-cli`, and `control-ui` from `cursor-te
 1. Fetch the new upstream commit into a temporary directory.
 2. Compare `pstack/skills/` with this plugin's `skills/` directory.
 3. Merge upstream content changes without replacing OpenCode-specific sections.
-4. Run `bun run scripts/adapt-upstream.ts` to remove simple Cursor names.
+4. Run `bun run scripts/adapt-upstream.ts` to remove simple Cursor names. It fails when upstream reintroduces Cursor's "agent store", "work dir", "sketch dir", or `.audit/` locations. Rewrite those to the run folder named in `skills/show-me-your-work/SKILL.md`. That wording is OpenCode-specific and must survive merges.
 5. Search for Cursor-only paths, model IDs, Task fields, cloud-agent fields, `/loop`, and transcript paths.
 6. Run `bun run check`.
 7. Load `/poteto-mode` in a fresh OpenCode session and verify that its base directory points into this plugin.

@@ -1,6 +1,6 @@
 ---
 name: show-me-your-work
-description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Local by default; commit it when a reviewer needs the trail to trust the result. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away."
+description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Kept in a run folder outside the tree; the PR description carries its verification summary. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away."
 disable-model-invocation: true
 ---
 
@@ -43,9 +43,11 @@ A run is one agent conversation, including its later turns and any summary of it
 
 ## Where it lives
 
-By default the log is a working artifact, not committed. Keep it at `decisions.tsv` in the work dir, or `.audit/<task-slug>.tsv` when several efforts run at once, and leave it out of git.
+The log is a working artifact, never committed. Keep it at `decisions.tsv` in the run folder, beside the run's other artifacts: plans, reports, sketches, and stores.
 
-Commit it only when the work is ambitious enough that a reviewer needs the trail to trust the result.
+The run folder is the location the repo's `AGENTS.md` names for run artifacts, when it names one. Otherwise call `pstack_run_dir` with a short kebab-case slug for the effort and use the path it returns. Calling it again with the same slug returns the same folder, so a pickup or subagent reaches the same trail. Never write run artifacts to `docs/`, `src/`, or anywhere else in the tree.
+
+When a reviewer needs the trail to trust the result, put the verification summary in the PR description, with the TSV in a collapsed section if it helps. Lessons the trail surfaced go into the nearest `AGENTS.md` or a comment on the line they explain.
 
 ## Rules
 

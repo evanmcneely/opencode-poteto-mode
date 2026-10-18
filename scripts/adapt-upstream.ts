@@ -53,9 +53,21 @@ const replacements: ReadonlyArray<readonly [RegExp, string]> = [
   [/\.cursor\/worktrees/g, "the configured OpenCode worktree directory"],
 ]
 
+const unresolvedLocations = /agent(?:'s)? store|\bwork dir\b|\bsketch dir\b|\.audit\//i
+const unresolved: string[] = []
+
 for (const relative of glob.scanSync({ cwd: root })) {
   const path = resolve(root, relative)
   let content = await readFile(path, "utf8")
   for (const [pattern, replacement] of replacements) content = content.replace(pattern, replacement)
   await writeFile(path, content)
+  content.split("\n").forEach((line, index) => {
+    if (unresolvedLocations.test(line)) unresolved.push(`${relative}:${index + 1}: ${line.trim()}`)
+  })
+}
+
+if (unresolved.length > 0) {
+  console.error("Cursor artifact locations have no OpenCode equivalent. Point them at the run folder from skills/show-me-your-work/SKILL.md:")
+  for (const line of unresolved) console.error(`  ${line}`)
+  process.exit(1)
 }

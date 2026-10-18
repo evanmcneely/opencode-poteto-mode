@@ -44,10 +44,10 @@ Apply the **sequence-verifiable-units** principle skill, verifying each unit bef
 
 ## Phase D: Keep the audit trail
 
-Log the run via the **show-me-your-work** skill. figure-it-out's work is usually ambitious enough to commit the trail so the reviewer can read it in the PR. The trail plus the diff is what lets the human come back and trust the work.
+Log the run via the **show-me-your-work** skill. The phase list, the trail, and the final report all go in the run folder that skill names, never in the repo. The trail plus the diff is what lets the human come back and trust the work, so the PR description carries the verification summary.
 
 ## Phase E: Verify and hand back
 
-Check the whole against the Phase A predicate on the real product, not just the harness. Encode any recurring correction as a gate, a lint rule, a check, or a script (the **encode-lessons-in-structure** principle skill).
+Check the whole against the Phase A predicate on the real product, not just the harness. Encode any recurring correction as a gate, a lint rule, a check, or a script (the **encode-lessons-in-structure** principle skill). Move every other lesson from the trail into the repo: a convention or pitfall goes in the nearest `AGENTS.md`, and the reason behind one surprising line goes in a comment on that line. The run folder is not where the repo keeps what it learned.
 
-**Reply:** the playbook you designed, the rigor level and why, the decision-trail path, what's verified against the predicate, and what's still open.
+**Reply:** the playbook you designed, the rigor level and why, the decision-trail path, the lessons moved into the repo and where, what's verified against the predicate, and what's still open.

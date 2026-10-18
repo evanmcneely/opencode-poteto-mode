@@ -5,7 +5,7 @@
 1. When the change is one or two files with an obvious approach, skip the plan. Say so and stop.
 2. Settle open questions by prototype before you write. Run `playbooks/prototype.md` for each. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (the **never-block-on-the-human** principle skill).
 3. Explore in subagents with `agent: "general"` with instructions to load **poteto-mode** first and an explicit model per the Subagents section (the **guard-the-context-window** principle skill). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
-4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **sequence-verifiable-units** principle skill). Name the execution playbook in **How to read this**. Pick between `playbooks/autopilot-full.md` and `playbooks/autopilot-stack.md` per the rule at the end of `playbooks/autopilot-stack.md`. A standing program takes `playbooks/orchestrate.md`.
+4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file as `plan.md` in the run folder (the **show-me-your-work** skill names it), never in the repo. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **sequence-verifiable-units** principle skill). Name the execution playbook in **How to read this**. Pick between `playbooks/autopilot-full.md` and `playbooks/autopilot-stack.md` per the rule at the end of `playbooks/autopilot-stack.md`. A standing program takes `playbooks/orchestrate.md`.
 5. Write under `/technical-writing` in full, then `/unslop`. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Each heading states the task or the finding. No long dashes. No mid-sentence colons.
 6. Run `node scripts/check-plan.mjs <plan.md>` from this skill's base directory and fix every line it prints (the **encode-lessons-in-structure** principle skill).
 7. Hand back. Post the plan path and the script's output, then stop. Execution starts on the operator's explicit go, under the execution playbook the plan names.
@@ -32,7 +32,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 ### Arm the program
 
 - [ ] State the protocol and this plan to the operator, then stop. Start execution only on the operator's explicit go.
-- [ ] On operator approval, write the plan path, ordered PR IDs, verification rule, merge owner, and done condition to `decisions.tsv`.
+- [ ] On operator approval, write the plan path, ordered PR IDs, verification rule, merge owner, and done condition to `decisions.tsv` in the run folder.
 - [ ] Read these from trunk at program start. Re-read them at every tick.
   - [ ] Read `playbooks/<execution playbook>.md` from the **poteto-mode** skill base directory.
   - [ ] Load the **swarm** skill.
