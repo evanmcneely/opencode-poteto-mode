@@ -24,6 +24,22 @@ After these sections, attach videos or screenshots when they prove a claim. Do n
 
 **Forge.** Resolve the forge before the first PR operation and keep that choice for create, edit, view, watch, and merge. GitHub CLI (`gh`) is the default. If `command -v origin` succeeds and Origin can resolve the repository, prefer `origin pr ...`. If Origin is absent or cannot resolve the repository, stay on `gh` and record the fallback. Do not require Graphite (`gt`).
 
+**Image attachments.** GitHub CLI v2.99.0 added native `--attach` support. Check `gh --version` and `gh pr create --help` before use. A local Markdown image path alone does not upload the file. With `gh` as the resolved forge, pass the file to `--attach`:
+
+```sh
+gh pr create --base main --head <branch> \
+	--title '<type(scope): subject>' --body-file pr.md \
+	--attach './screenshot.png#The state that proves the change'
+```
+
+Repeat `--attach` for each image or video. GitHub uploads the files as attachments, without a commit or a release asset. Files absent from the body appear at its end. To place an image after the verification section, put `![Description](./screenshot.png)` there in `pr.md` and attach that same file. The CLI replaces the local path with the uploaded URL and keeps the Markdown alt text. Paths in a body file resolve from its directory, then the working directory.
+
+For an existing PR, use `gh pr edit <pr> --body-file pr.md --attach ./screenshot.png`. Preserve the current body in `pr.md` before the edit. Use `gh pr comment <pr> --body 'Evidence' --attach ./screenshot.png` when the evidence belongs in a comment.
+
+Uploads require repository push access and an OAuth token from `gh auth login` or a classic personal access token. The Actions `GITHUB_TOKEN` does not work. If the CLI is too old, use a current official binary or the GitHub web editor. With Origin as the resolved forge, do not assume that it accepts `--attach`. Upload through the web editor and reuse the attachment URL without a forge switch. Do not extract browser session cookies for this task.
+
+After the command, inspect the PR body with the resolved forge and check the uploaded URL and rendered image. A partial upload failure can still create the PR and print its URL before a nonzero exit. Inspect that PR and repair its attachments instead of a second create. See [GitHub's attachment guide](https://docs.github.com/en/github-cli/github-cli/attaching-files-with-github-cli) for file types and placement rules.
+
 **Size and stacks.** Prefer five narrow PRs to one large PR. A stack is a base-branch chain. The root PR targets trunk. Each child branch rebases onto its parent's exact tip and its PR targets the parent branch. Create a child with `origin pr create --status open --base <parent-branch>` or `gh pr create --base <parent-branch>` according to the resolved forge. Retarget an existing child with `origin pr edit <pr> --base <parent-branch>` or `gh pr edit <pr> --base <parent-branch>`. Branch from trunk only for independent work. Rebase on trunk before substantial stack work.
 
 **Readiness.** Open every PR ready, never as a draft. With Origin, pass `--status open`. With `gh`, omit `--draft`. Cloud-agent PR tools default to draft, so set `draft: false` on every PR creation call. If a PR still opens as a draft, run `origin pr ready <number>` or `gh pr ready <number>` according to the resolved forge. Run `origin pr view <number>` or `gh pr view <number>` before you refer to PR status.
