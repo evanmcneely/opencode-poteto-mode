@@ -44,7 +44,7 @@ Apply the **sequence-verifiable-units** principle skill, verifying each unit bef
 
 ## Phase D: Keep the audit trail
 
-Log the run via the **show-me-your-work** skill. The phase list, the trail, and the final report all go in the run folder that skill names, never in the repo. The trail plus the diff is what lets the human come back and trust the work, so the PR description carries the verification summary.
+Log the run via the **show-me-your-work** skill. The phase list, the trail, and the final report all go in the gitignored run folder that skill names (`.audit/<task-slug>/` in the current worktree by default), never committed. The trail plus the diff is what lets the human come back and trust the work, so the PR description carries the verification summary.
 
 ## Phase E: Verify and hand back
 

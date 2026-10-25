@@ -2,7 +2,6 @@ import { Plugin } from "@opencode/plugin"
 import type { Skill } from "@opencode/schema/skill"
 import { isExitPrompt, withSkill } from "./mode.ts"
 import { listProjectSessions } from "./session-client.ts"
-import { RUN_SLUG_PATTERN, resolveRunDirectory, runsRoot } from "./run-dir.ts"
 import { loadBundledSkills } from "./skills.ts"
 import type { MessageListInput, SessionDiffInput } from "@opencode/client"
 import { activeProjectSessions, connectSessionClient, projectSessionDiff, projectSessionMessages } from "./session-inspection.ts"
@@ -158,25 +157,6 @@ export default Plugin.define({
           }
           const messages = await ctx.session.context({ sessionID })
           return { content: JSON.stringify(messages, null, 2) }
-        },
-      })
-      editor.add({
-        name: "run_dir",
-        description:
-          "Create or reuse this project's folder for one run's artifacts (plans, decisions.tsv, reports, orchestrate stores). The folder is outside the repository and survives worktree removal. Returns its absolute path.",
-        input: {
-          type: "object",
-          properties: {
-            slug: { type: "string", pattern: RUN_SLUG_PATTERN, description: "Short kebab-case name for the run, reused to return the same folder" },
-          },
-          required: ["slug"],
-          additionalProperties: false,
-        },
-        options: { namespace: "pstack", codemode: true },
-        execute: async (input) => {
-          const { slug } = input as { slug: string }
-          const directory = await resolveRunDirectory(runsRoot(ctx.location.project.id), slug)
-          return { content: JSON.stringify({ directory }, null, 2) }
         },
       })
     })

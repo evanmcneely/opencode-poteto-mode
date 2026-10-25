@@ -28,7 +28,7 @@ Pass `sessionID` to `session_diff`. Optional `from` and `to` values select messa
 
 ## Run folders
 
-`pstack_run_dir` is not a session reader. It gives each run one folder for its artifacts: plans, `decisions.tsv`, reports, sketches, and orchestrate stores. Pass a kebab-case `slug`. It returns `{ directory }`, an absolute path at `$XDG_DATA_HOME/opencode/poteto/<project-id>/runs/<YYYY-MM-DD>-<slug>/`, which defaults to `~/.local/share/...`. The same slug returns the same folder on later days, so a pickup or subagent reaches the same trail. The folder is outside the repository, so it is never committed and survives worktree removal.
+Run artifacts live in `.audit/<task-slug>/` at the current worktree root by default: plans, `decisions.tsv`, reports, sketches, and orchestrate stores. Add `.audit/` to the repository's `.gitignore` before writing artifacts. No run-directory tool is needed. Artifacts belong to that worktree and do not survive its removal unless copied elsewhere.
 
 A repo that wants run artifacts elsewhere names the location in its `AGENTS.md`. The skills prefer that location over the tool.
 
